@@ -8,5 +8,7 @@ This is a repository containing the perfomance analysis notebooks for CEBRA.
 * Dimensionality notebook is a notebook used to evaluate the performance of CEBRA models, starting with simple inputs
 * d_library has helper functions to be used in the dimensionality analysis of the embeddings
 * Animate embeddings is a notebook used to generate animations of the embeddings produced
+* Model_arch contains the analysis of the CEBRA embeddings produced by different model architectures
+* Temp_analysis is a notebook showing a detailed analysis of how temperature could affect the way the embeddings turn out.
 
 
