@@ -2,6 +2,11 @@
 
 /cebraenv/
 
+/code/anima.gif
+/code/test_ani.gif
+/code/test_ani_1.gif
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
