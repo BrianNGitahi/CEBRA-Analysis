@@ -12,6 +12,7 @@ from scipy.integrate import solve_ivp
 import cebra.datasets
 from cebra import CEBRA
 import torch
+import matplotlib.gridspec as gridspec
 
 from matplotlib.collections import LineCollection
 import sklearn.linear_model
@@ -208,4 +209,15 @@ def plot_lorenz(coords):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     ax.set_title('Attractor')
+#--------------------------------------------------------------------
+
+# plot the embeddings
+def plot_2embeddings(embed1,embed2):
+    fig0 = plt.figure(figsize=(8,4))
+    gs = gridspec.GridSpec(1, 2, figure=fig0)
+
+    ax0 = fig0.add_subplot(gs[0,0], projection='3d')
+    ax1 = fig0.add_subplot(gs[0,1], projection='3d')
+    cebra.plot_embedding(embed1, embedding_labels='time', ax=ax0, markersize=5, alpha=1, title='Circle')
+    cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='Lorenz Attractor')
 #--------------------------------------------------------------------
