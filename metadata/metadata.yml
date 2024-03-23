@@ -1,5 +1,12 @@
 metadata_version: 1
 name: CEBRA-Analysis
-description: Basic structure of a capsule to be customized as needed.
+description: |-
+  Capsule with notebooks detailing performance analysis of CEBRA, the manifold embedding algorithm from Mackenzie Mathis' lab.
+  In these notebooks we are trying to find optimum model parameters for CEBRA to recover simple inputs: a 2D circle and the Lorenz Attractor. This is a preliminary assessment step before using it on analysis of FIP data.
+tags:
+- Manifold Embedding
+- Structure
+- Dimension Reduction
 authors:
 - name: AIND
+- name: Brian Gitahi

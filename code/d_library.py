@@ -89,7 +89,7 @@ def base_embed_l(input, temp=1, dimension=3, lr = 0.01):
                             min_temperature=0.1,
                             delta=0.5,
                             output_dimension = int(dimension),
-                            max_iterations=iterations,
+                            max_iterations=1000,
                             distance='euclidean',
                             conditional='delta',
                             device='cuda_if_available',
@@ -367,4 +367,5 @@ def plot_2embeddings(embed1,embed2):
     ax1 = fig0.add_subplot(gs[0,1], projection='3d')
     cebra.plot_embedding(embed1, embedding_labels='time', ax=ax0, markersize=5, alpha=1, title='Circle')
     cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='Lorenz Attractor')
+    plt.show()
 #--------------------------------------------------------------------

@@ -64,7 +64,16 @@ def fig_3():
 
 # Figure 4
 def fig_4():
-     pass
+    
+    #make inputs
+    circle = dl.make_circle()
+    xyz = dl.make_lorenz()
+    lorenz_obj = xyz.reshape(10000,3)
+    # compute and plot embeddings
+    ft_model_c, ft_embedding_c = dl.base_embed(circle, lr=0.1, d=0.5)
+    ft_model_l, ft_embedding_l = dl.base_embed(lorenz_obj, lr=0.01, d=0.5)
+    dl.plot_2embeddings(ft_embedding_c,ft_embedding_l)
+    plt.savefig(results_folder + os.sep + "Figure 4" + ".png")
 
 
 # Figure 5
@@ -75,10 +84,10 @@ def fig_5():
     xyz = dl.make_lorenz()
     lorenz_obj = xyz.reshape(10000,3)
     # get their embeddings and plot them
-    lt_model_c, lt_embedding_c = base_embed_l(circle, lr=0.1)
-    lt_model_l, lt_embedding_l = base_embed_l(lorenz_obj, lr=0.01)
+    lt_model_c, lt_embedding_c = dl.base_embed_l(circle, lr=0.1)
+    lt_model_l, lt_embedding_l = dl.base_embed_l(lorenz_obj, lr=0.01)
     dl.plot_2embeddings(lt_embedding_c,lt_embedding_l)
-    plt.savefig(results_folder + os.sep + "Figure 5" + ".png")
+    plt.savefig(results_folder + os.sep + "Figure 5+" + ".png")
 
 
 # Figure 6
@@ -96,15 +105,16 @@ def fig_7():
     # make attractor and plot it
     xyz = dl.make_lorenz()
     dl.plot_lorenz(xyz)
-    plt.savefig(results_folder + os.sep + "Figure 7" + ".png")
+    plt.savefig(results_folder + os.sep + "Figure 7+" + ".png")
 
 
 
 #%%
 def run():
     
-    fig_6()
+  fig_7()
     
 if __name__ == "__main__": run()
+
 
 # %%
