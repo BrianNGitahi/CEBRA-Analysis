@@ -13,6 +13,7 @@ import cebra.datasets
 from cebra import CEBRA
 import torch
 import matplotlib.gridspec as gridspec
+import matplotlib.gridspec as gridspec
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -357,4 +358,13 @@ def pc_cebra_comp(object, n_iterations = 1):
         plt.show()
 
     return explained_var
+# plot the embeddings
+def plot_2embeddings(embed1,embed2):
+    fig0 = plt.figure(figsize=(8,4))
+    gs = gridspec.GridSpec(1, 2, figure=fig0)
+
+    ax0 = fig0.add_subplot(gs[0,0], projection='3d')
+    ax1 = fig0.add_subplot(gs[0,1], projection='3d')
+    cebra.plot_embedding(embed1, embedding_labels='time', ax=ax0, markersize=5, alpha=1, title='Circle')
+    cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='Lorenz Attractor')
 #--------------------------------------------------------------------
