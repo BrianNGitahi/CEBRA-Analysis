@@ -13,7 +13,6 @@ import cebra.datasets
 from cebra import CEBRA
 import torch
 import matplotlib.gridspec as gridspec
-import matplotlib.gridspec as gridspec
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
