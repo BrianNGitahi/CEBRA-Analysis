@@ -357,6 +357,9 @@ def pc_cebra_comp(object, n_iterations = 1):
         plt.show()
 
     return explained_var
+
+#--------------------------------------------------------------------
+
 # plot the embeddings
 def plot_2embeddings(embed1,embed2):
     fig0 = plt.figure(figsize=(8,4))

@@ -1,4 +1,4 @@
-""" this script produces all the figures in the summary document"""
+""" this script produces all the figures in the summary document, CEBRA Analysis"""
 #-----------------------------------------------------------------------
 #%%
 import sys
@@ -102,6 +102,7 @@ def fig_6():
 
 # Figure 7
 def fig_7():
+
     # make attractor and plot it
     xyz = dl.make_lorenz()
     dl.plot_lorenz(xyz)
