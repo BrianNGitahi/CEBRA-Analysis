@@ -60,6 +60,7 @@ def fig_3():
     # make attractor and compute embedding
     xyz = dl.make_lorenz()
     dl.embed_attractor(xyz)
+    print('out of function')
     plt.savefig(results_folder + os.sep + "Figure 3" + ".png")
 
 # Figure 4
@@ -113,8 +114,8 @@ def fig_7():
 #-----------------------------------------------------------------------
 def run():
     # plot all the figures
-    # fig_1()
-    # fig_2()
+    fig_1()
+    fig_2()
     fig_3()
     fig_4()
     fig_5()
@@ -125,3 +126,5 @@ if __name__ == "__main__":
     run()
     
 #-----------------------------------------------------------------------
+
+# %%
