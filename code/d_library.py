@@ -73,7 +73,9 @@ def base_embed(input, temp=1, dimension=3, lr = 0.01, d=0.1):
                          verbose=True,
                          time_offsets=1)
 
-    model.fit(input)
+    train_size = int(input.shape[0]*0.75)
+
+    model.fit(input[:train_size])
     embedding = model.transform(input)
     return model, embedding
 #--------------------------------------------------------------------
