@@ -1,4 +1,4 @@
-""" this script produces all the figures in the summary document"""
+""" this script produces all the figures in the summary document, CEBRA Analysis"""
 #-----------------------------------------------------------------------
 #%%
 import sys
@@ -61,6 +61,7 @@ def fig_3():
     # make attractor and compute embedding
     xyz = dl.make_lorenz()
     dl.embed_attractor(xyz)
+    print('out of function')
     plt.savefig(results_folder + os.sep + "Figure 3" + ".png")
 
 # Figure 4
@@ -103,6 +104,7 @@ def fig_6():
 
 # Figure 7
 def fig_7():
+
     # make attractor and plot it
     xyz = dl.make_lorenz()
     dl.plot_lorenz(xyz)
@@ -113,6 +115,8 @@ def fig_7():
 #-----------------------------------------------------------------------
 def run():
     # plot all the figures
+    fig_1()
+    fig_2()
     fig_3()
     # fig_2()
     # fig_3()
