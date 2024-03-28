@@ -56,7 +56,7 @@ def get_embed(input, dimension=3):
 #--------------------------------------------------------------------
 
 # version 2 of get embed -- will align them later: used in pca_cebra_comp
-def base_embed(input, temp=1, dimension=3, lr = 0.01, d=0.1):
+def base_embed(input, b_label=None, temp=1, dimension=3, lr = 0.01, d=0.1, mode='time', iters = 1000):
 
     # build CEBRA time model
     model = CEBRA(model_architecture='offset1-model',
@@ -64,16 +64,23 @@ def base_embed(input, temp=1, dimension=3, lr = 0.01, d=0.1):
                          learning_rate=int(lr),
                          temperature=int(temp),
                          output_dimension = int(dimension),
-                         max_iterations=1000,
+                         max_iterations=int(iters),
                          distance='euclidean',
                          delta=int(d),
-                         conditional='delta',
+                         conditional=mode,
                          device='cuda_if_available',
                          num_hidden_units=64,
                          verbose=True,
                          time_offsets=1)
+    
+    # train using label if it's a behaviour model
+    train_size = int(input.shape[0]*0.8)
 
-    model.fit(input)
+    if mode == 'time':
+        model.fit(input[:train_size])
+    if mode == 'delta':
+        model.fit(input[:train_size],b_label[:train_size])
+
     embedding = model.transform(input)
     return model, embedding
 #--------------------------------------------------------------------
@@ -362,36 +369,33 @@ def pc_cebra_comp(object, n_iterations = 1):
 #--------------------------------------------------------------------
 
 # plot the embeddings
-def plot_2embeddings(embed1,embed2):
+def plot_2embeddings(embed1,embed2, label1='Cirlce', label2='Attractor'):
     fig0 = plt.figure(figsize=(8,4))
     gs = gridspec.GridSpec(1, 2, figure=fig0)
 
     ax0 = fig0.add_subplot(gs[0,0], projection='3d')
     ax1 = fig0.add_subplot(gs[0,1], projection='3d')
-    cebra.plot_embedding(embed1, embedding_labels='time', ax=ax0, markersize=5, alpha=1, title='Circle')
-    cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='Lorenz Attractor')
+    cebra.plot_embedding(embed1, embedding_labels='time', ax=ax0, markersize=5, alpha=1, title='{}'.format(label1))
+    cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='{}'.format(label2))
     plt.show()
 #--------------------------------------------------------------------
-# define the grid and axes
-fig = plt.figure(figsize=(10,10))
-gs = gridspec.GridSpec(2, 2, figure=fig) 
-ax1 = plt.subplot(gs[0, :], projection='3d')
-ax2 = plt.subplot(gs[1, 0])
-ax3 = plt.subplot(gs[1, 1], projection='3d')
 
-def update(frame):
-        ax1.clear()
-        ax2.clear()
-        ax3.clear()
+# function to view the ideal embedding from different angles
+def view_embed(embed1,embed2,label1='embedding1', label2='embedding2', n_angles=3):
 
-        attractor_p = new_lorenz[:frame, :]
+    fig1=plt.figure(figsize=(8,4*n_angles))
+    gs = gridspec.GridSpec(n_angles, 2, figure=fig1)
 
-        ax1.plot(attractor_p[:,0], attractor_p[:,1], attractor_p[:,2], alpha=1)
-        ax1.set_title('Timestep {}'.format(frame))
+    for i, ii in enumerate(range(0,360,int(360/n_angles))):
 
-        cebra.plot_embedding(embedding=cebra_output_2[:frame, :], embedding_labels= 'time', title='2D Embedding', markersize=5, ax=ax2)
-        cebra.plot_embedding(embedding=cebra_output[:frame, :], embedding_labels='time', markersize=5, title='3D Embedding', ax=ax3)
+        ax1 = fig1.add_subplot(gs[1*i,0], projection='3d')
+        ax1.view_init(elev=10., azim=ii)
+        cebra.plot_embedding(embed1, embedding_labels='time', ax=ax1, markersize=5, alpha=1, title='{}: {}'.format(label1,ii))
 
-anima = FuncAnimation(fig, update, frames=range(0, cebra_output.shape[0], 1), blit=False, interval=200, repeat=False)
-plt.show()
-anima.save("anima.gif", writer='pillow')
+        ax2 = fig1.add_subplot(gs[1*i,1], projection='3d')
+        ax2.view_init(elev=10., azim=ii)
+        cebra.plot_embedding(embed2, embedding_labels='time',ax=ax2, markersize=0.001, alpha=1, title='{}: {}'.format(label2,ii))
+        
+        plt.tight_layout()
+
+    #--------------------------------------------------------------------
