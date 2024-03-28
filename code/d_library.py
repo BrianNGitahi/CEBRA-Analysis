@@ -15,6 +15,7 @@ import torch
 import matplotlib.gridspec as gridspec
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
 
 from matplotlib.collections import LineCollection
 import sklearn.linear_model
