@@ -15,6 +15,7 @@ import torch
 import matplotlib.gridspec as gridspec
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
 
 from matplotlib.collections import LineCollection
 import sklearn.linear_model
@@ -357,6 +358,9 @@ def pc_cebra_comp(object, n_iterations = 1):
         plt.show()
 
     return explained_var
+
+#--------------------------------------------------------------------
+
 # plot the embeddings
 def plot_2embeddings(embed1,embed2):
     fig0 = plt.figure(figsize=(8,4))
@@ -368,3 +372,26 @@ def plot_2embeddings(embed1,embed2):
     cebra.plot_embedding(embed2, embedding_labels='time',ax=ax1, markersize=0.001, alpha=1, title='Lorenz Attractor')
     plt.show()
 #--------------------------------------------------------------------
+# define the grid and axes
+fig = plt.figure(figsize=(10,10))
+gs = gridspec.GridSpec(2, 2, figure=fig) 
+ax1 = plt.subplot(gs[0, :], projection='3d')
+ax2 = plt.subplot(gs[1, 0])
+ax3 = plt.subplot(gs[1, 1], projection='3d')
+
+def update(frame):
+        ax1.clear()
+        ax2.clear()
+        ax3.clear()
+
+        attractor_p = new_lorenz[:frame, :]
+
+        ax1.plot(attractor_p[:,0], attractor_p[:,1], attractor_p[:,2], alpha=1)
+        ax1.set_title('Timestep {}'.format(frame))
+
+        cebra.plot_embedding(embedding=cebra_output_2[:frame, :], embedding_labels= 'time', title='2D Embedding', markersize=5, ax=ax2)
+        cebra.plot_embedding(embedding=cebra_output[:frame, :], embedding_labels='time', markersize=5, title='3D Embedding', ax=ax3)
+
+anima = FuncAnimation(fig, update, frames=range(0, cebra_output.shape[0], 1), blit=False, interval=200, repeat=False)
+plt.show()
+anima.save("anima.gif", writer='pillow')

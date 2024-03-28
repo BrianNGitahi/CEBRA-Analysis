@@ -30,6 +30,7 @@ import d_library as dl
 #-----------------------------------------------------------------------
 # define results folder
 results_folder = r"/results"
+#os.makedirs(results_folder, exist_ok=True)
 
 # Figure 1
 def fig_1():
@@ -112,15 +113,17 @@ def fig_7():
 #-----------------------------------------------------------------------
 def run():
     # plot all the figures
-    # fig_1()
-    # fig_2()
     fig_3()
-    fig_4()
-    fig_5()
-    fig_6()
-    fig_7()
+    # fig_2()
+    # fig_3()
+    # fig_4()
+    # fig_5()
+    # fig_6()
+    # fig_7()
  
 if __name__ == "__main__":
     run()
     
 #-----------------------------------------------------------------------
+
+# %%
