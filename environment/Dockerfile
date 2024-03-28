@@ -1,4 +1,4 @@
-# hash:sha256:1c6bc8add232f7dedaa42cf6f44af800fdc94d81e60a6220152c8befac166418
+# hash:sha256:20d87016ffc9e77f30dc71acd8aacc2fff1d68f7af2400407b33af74c229e70b
 ARG REGISTRY_HOST
 FROM $REGISTRY_HOST/codeocean/lightning-jupyterlab-py39:1.0
 
@@ -11,6 +11,7 @@ ARG GIT_ACCESS_TOKEN
 COPY git-askpass /
 
 RUN pip install -U --no-cache-dir \
+    cebra[dev,demos]==0.4.0 \
     matplotlib==3.8.3 \
     numpy==1.26.4 \
     pandas==2.2.1 \

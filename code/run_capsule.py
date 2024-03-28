@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from scipy.integrate import solve_ivp
 #import joblib as jl
+import cebra
 import cebra.datasets
 from cebra import CEBRA
 import torch
