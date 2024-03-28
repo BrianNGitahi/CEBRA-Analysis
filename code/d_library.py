@@ -56,10 +56,10 @@ def get_embed(input, dimension=3):
 #--------------------------------------------------------------------
 
 # version 2 of get embed -- will align them later: used in pca_cebra_comp
-def base_embed(input, b_label=None, temp=1, dimension=3, lr = 0.01, d=0.1, mode='time', iters = 1000):
+def base_embed(input, b_label=None, temp=1, dimension=3, lr = 0.01, d=0.1, mode='time', iters = 2000):
 
     # build CEBRA time model
-    model = CEBRA(model_architecture='offset1-model',
+    model = CEBRA(model_architecture='offset1-model-mse',
                          batch_size=512,
                          learning_rate=int(lr),
                          temperature=int(temp),
@@ -70,8 +70,7 @@ def base_embed(input, b_label=None, temp=1, dimension=3, lr = 0.01, d=0.1, mode=
                          conditional=mode,
                          device='cuda_if_available',
                          num_hidden_units=64,
-                         verbose=True,
-                         time_offsets=1)
+                         verbose=True)
     
     # train using label if it's a behaviour model
     train_size = int(input.shape[0]*0.8)
