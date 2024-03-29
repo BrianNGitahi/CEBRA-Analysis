@@ -52,6 +52,9 @@ for i in range(0,iterations):
     score_b, transf_embedding_b = dl.reconstruction_score(embedding_b, new_lorenz)
     behaviour_scores.append(score_b)
 
+time_mean = np.round(np.mean(time_scores),3)
+behaviour_mean = np.round(np.mean(behaviour_scores),3)
+
 # %%
 # iterate then make plot of reconstruction score for both
 
@@ -60,6 +63,7 @@ plt.plot(time_scores, 'o', label='time mode')
 plt.plot(behaviour_scores, 'o',label='behaviour mode')
 plt.xlabel('n_iterations')
 plt.ylabel('reconstruction scores')
+plt.title('Averages(time, behaviour):{}, {}'.format(time_mean, behaviour_mean))
 plt.legend()
 plt.show()
 
