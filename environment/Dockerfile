@@ -1,6 +1,6 @@
-# hash:sha256:20d87016ffc9e77f30dc71acd8aacc2fff1d68f7af2400407b33af74c229e70b
+# hash:sha256:ff3af49bd996ff3a7f1bb358f3a043babbeafa7ebe3a4ddf45431c3deaeb0b68
 ARG REGISTRY_HOST
-FROM $REGISTRY_HOST/codeocean/lightning-jupyterlab-py39:1.0
+FROM $REGISTRY_HOST/codeocean/jupyterlab:3.6.1-miniconda4.12.0-python3.9-ubuntu20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG API_KEY
@@ -17,10 +17,3 @@ RUN pip install -U --no-cache-dir \
     pandas==2.2.1 \
     scikit-learn==1.4.1.post1 \
     seaborn==0.13.2
-
-ADD "https://github.com/coder/code-server/releases/download/v4.9.0/code-server-4.9.0-linux-amd64.tar.gz" /.code-server/code-server.tar.gz
-	
-RUN cd /.code-server \
-	&& tar -xvf code-server.tar.gz \
-	&& rm code-server.tar.gz \
-	&& ln -s /.code-server/code-server-4.9.0-linux-amd64/bin/code-server  /usr/bin/code-server
